@@ -16,6 +16,7 @@ import FullLogo from "../../public/full_logo.svg";
 import Image from "next/image";
 import SideNavItem from "./SideNavItem";
 import { INavItem } from "@/lib";
+import { UserButton } from "@clerk/nextjs";
 
 function SideNav() {
   // const iconSize = 100;

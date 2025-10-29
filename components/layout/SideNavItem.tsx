@@ -8,13 +8,15 @@ type Props = { item: INavItem };
 const SideNavItem = ({ item }: Props) => {
   return (
     <SidebarMenuItem key={item.id}>
-      <SidebarMenuButton asChild>
+      <SidebarMenuButton
+        asChild
+        className="hover:text-primary hover:bg-blue-100"
+      >
         <Link
           href={item.url}
-          className="flex items-center gap-3 p-3 h-[30px] mb-[10px] text-[16px]"
+          className="flex items-center gap-2 h-[30px] mb-[10px] text-[16px] text-gray-500 p-5 font-medium cursor-pointer rounded-md"
         >
           <div className="flex items-center justify-center w-8 h-8">
-            {/* Force size using Tailwind */}
             <div className="w-8 h-8 [&>svg]:w-full [&>svg]:h-full">
               {<item.icon />}
             </div>
