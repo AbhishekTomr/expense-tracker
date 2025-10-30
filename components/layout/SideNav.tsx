@@ -16,35 +16,32 @@ import FullLogo from "../../public/full_logo.svg";
 import Image from "next/image";
 import SideNavItem from "./SideNavItem";
 import { INavItem } from "@/lib";
-import { UserButton } from "@clerk/nextjs";
 
 function SideNav() {
-  // const iconSize = 100;
-
   const items: INavItem[] = [
     {
       id: "dashboard",
       title: "Dashboard",
       url: "/dashboard",
-      icon: LayoutGrid,
+      icon: <LayoutGrid />,
     },
     {
       id: "budget",
       title: "Budget",
       url: "/budget",
-      icon: PiggyBankIcon,
+      icon: <PiggyBankIcon />,
     },
     {
       id: "expenses",
       title: "Expenses",
       url: "/expenses",
-      icon: ReceiptText,
+      icon: <ReceiptText />,
     },
     {
       id: "upgrade",
       title: "Upgrade",
       url: "/upgrade",
-      icon: ShieldCheck,
+      icon: <ShieldCheck />,
     },
   ];
 
