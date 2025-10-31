@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { ChangeEvent, useCallback, useMemo, useState } from "react";
 import EmojiPicker from "../common/EmojiPicker";
 import { Button } from "../ui/button";
 import {
@@ -8,6 +8,8 @@ import {
   DialogTitle,
   DialogContent,
   DialogTrigger,
+  DialogFooter,
+  DialogClose,
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -15,6 +17,7 @@ import { IBudget } from "@/lib";
 import _ from "lodash";
 import { useUser } from "@clerk/nextjs";
 import { createBudget } from "@/actions/expense";
+import { toast } from "sonner";
 
 const initialBudgetVal = {
   "budget-name": "",
@@ -26,6 +29,7 @@ function CreateBudget() {
   const { user } = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [budget, setBudget] = useState<IBudget>(initialBudgetVal);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onChangeHandler = useCallback(
     (id: string, value: string) => {
@@ -51,18 +55,24 @@ function CreateBudget() {
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
-      const response = await createBudget(budget);
-      console.log("Budget created successfully", response);
+      await createBudget(budget);
+      toast("Budget created successfully!!");
       setBudget(initialBudgetVal);
-    } catch (err) {
-      console.error("Error creating budget:", err);
+    } catch {
+      toast.warning("Error creating budget!!");
     } finally {
       setIsLoading(false);
+      setIsOpen(false);
     }
   };
 
   return (
-    <Dialog>
+    <Dialog
+      open={isOpen}
+      onOpenChange={() => {
+        setIsOpen((oldState) => !oldState);
+      }}
+    >
       <DialogTrigger asChild>
         <div className="bg-slate-100 p-10 rounded-md items-center flex flex-col border-2 border-dashed cursor-pointer hover:shadow-sm">
           <h2 className="text-3xl">+</h2>
