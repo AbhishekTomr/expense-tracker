@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import _ from "lodash";
 import LoadingWrapper from "@/components/wrappers/LoadingWrapper";
 import { getAllBugets } from "@/actions/expense";
-import { useRouter } from "next/navigation";
 import { Lock } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";

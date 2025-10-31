@@ -8,3 +8,10 @@ interface INavItem {
     Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
   >;
 }
+
+interface IBudget {
+  "budget-name": string;
+  "budget-amount": string;
+  emoji: string;
+  createdBy: string;
+}

@@ -13,7 +13,7 @@ const LogedInAppLayout = ({ children }: Props) => {
           <SideNav />
         </SidebarProvider>
       </div>
-      <div className="border-2 w-full">{children}</div>
+      <div className="w-full p-10">{children}</div>
     </div>
   );
 };
