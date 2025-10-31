@@ -107,10 +107,10 @@ function CreateBudget() {
             <Button
               form="create-budget"
               type="submit"
-              disabled={disableSubmit}
+              disabled={disableSubmit || isLoading}
               className="w-full mt-5"
             >
-              Create Budget
+              {isLoading ? "Adding Budget...." : "Create Budget"}
             </Button>
           </form>
         </DialogHeader>
