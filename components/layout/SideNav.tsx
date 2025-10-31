@@ -26,9 +26,9 @@ function SideNav() {
       icon: <LayoutGrid />,
     },
     {
-      id: "budget",
-      title: "Budget",
-      url: "/budget",
+      id: "budgets",
+      title: "Budgets",
+      url: "/budgets",
       icon: <PiggyBankIcon />,
     },
     {

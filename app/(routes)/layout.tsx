@@ -11,10 +11,9 @@ const LogedInAppLayout = ({ children }: Props) => {
       <div>
         <SidebarProvider>
           <SideNav />
-          <SidebarTrigger />
         </SidebarProvider>
       </div>
-      <div>{children}</div>
+      <div className="border-2 w-full">{children}</div>
     </div>
   );
 };
