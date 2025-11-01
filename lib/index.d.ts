@@ -15,3 +15,8 @@ interface IBudget {
   emoji: string;
   createdBy: string;
 }
+
+interface IBudgetItem extends IBudget {
+  totalSpend: number;
+  totalCount: number;
+}

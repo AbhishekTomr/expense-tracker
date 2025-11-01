@@ -8,8 +8,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogTrigger,
-  DialogFooter,
-  DialogClose,
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -25,11 +23,16 @@ const initialBudgetVal = {
   emoji: "🙂",
   createdBy: "",
 };
-function CreateBudget() {
+function CreateBudget({
+  isOpen,
+  setIsOpen,
+}: {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+}) {
   const { user } = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [budget, setBudget] = useState<IBudget>(initialBudgetVal);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onChangeHandler = useCallback(
     (id: string, value: string) => {

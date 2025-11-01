@@ -11,7 +11,7 @@ const EmojiPicker = ({ emoji, onChangeHandler }: IEmojiPicker) => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
-    <div className="absolute mt-6">
+    <div className="absolute mt-6 z-5">
       <Button
         className=""
         variant={"outline"}
