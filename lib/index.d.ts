@@ -17,6 +17,14 @@ interface IBudget {
 }
 
 interface IBudgetItem extends IBudget {
+  id: number;
   totalSpend: number;
   totalCount: number;
+}
+
+interface IExpenses {
+  description: string;
+  amount: string;
+  date: Date;
+  budgetId: number;
 }

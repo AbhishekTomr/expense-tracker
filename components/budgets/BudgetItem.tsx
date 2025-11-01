@@ -1,12 +1,15 @@
 import { IBudgetItem } from "@/lib";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 type Props = {
   budget: IBudgetItem;
+  hideDetailsButton?: boolean;
 };
 
-const BudgetItem = ({ budget }: Props) => {
+const BudgetItem = ({ budget, hideDetailsButton = false }: Props) => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-sm flex flex-col gap-2">
+    <div className="bg-white p-4 rounded-lg shadow-sm border-2 flex flex-col gap-2">
       <div className="flex gap-2 font-bold">
         <div className="text-2xl">{budget.emoji}</div>
         <div className="text-lg">{budget["budget-name"]}</div>
@@ -24,6 +27,11 @@ const BudgetItem = ({ budget }: Props) => {
           }}
         ></div>
       </div>
+      {!hideDetailsButton && (
+        <Button asChild className="w-30">
+          <Link href={`/expenses/${budget.id}`}>View Details</Link>
+        </Button>
+      )}
     </div>
   );
 };

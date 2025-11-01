@@ -18,7 +18,8 @@ function BudgetList() {
     getAllBugets(user?.primaryEmailAddress?.emailAddress || "").then(
       (budgets) => {
         const currentBudgets: IBudgetItem[] = budgets.map(
-          ({ name, amount, icon, createdBy, totalSpend, totalCount }) => ({
+          ({ id, name, amount, icon, createdBy, totalSpend, totalCount }) => ({
+            id,
             "budget-name": name,
             "budget-amount": amount,
             emoji: icon || "",

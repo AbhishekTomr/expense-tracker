@@ -14,7 +14,7 @@ const SideNavItem = ({ item }: Props) => {
       <SidebarMenuButton
         asChild
         className={`hover:text-primary hover:bg-blue-100 p-6 ${
-          pathname === item.url ? "text-primary bg-blue-100" : ""
+          pathname.startsWith(item.url) ? "text-primary bg-blue-100" : ""
         }`}
       >
         <Link
