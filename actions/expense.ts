@@ -1,5 +1,5 @@
 "use server";
-import { IBudget, IExpenses } from "@/lib";
+import { IBudget, IExpenses, IExpensesItem } from "@/lib";
 import { db } from "@/lib/db-config";
 import { Budgets, Expenses } from "@/lib/schema";
 import { and, eq, getTableColumns, sql } from "drizzle-orm";
@@ -67,6 +67,27 @@ export const createExpense = async (expense: IExpenses) => {
       date: expense.date,
       budgetId: expense.budgetId,
     })
+    .returning({ expenseId: Expenses.id });
+  return result;
+};
+
+export const deleteExpenses = async (expenseId: number) => {
+  const result = await db
+    .delete(Expenses)
+    .where(eq(Expenses.id, expenseId))
+    .returning({ expenseId: Expenses.id });
+  return result;
+};
+
+export const editExpense = async (expense: IExpensesItem) => {
+  console.log("check this out*****", expense);
+  const result = await db
+    .update(Expenses)
+    .set({
+      ...expense,
+      updatedAt: new Date(),
+    })
+    .where(eq(Expenses.id, expense.id))
     .returning({ expenseId: Expenses.id });
   return result;
 };

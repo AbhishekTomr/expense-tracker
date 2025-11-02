@@ -1,7 +1,6 @@
 "use client";
-import { getExpensesByBudget } from "@/actions/expense";
 import { IExpensesItem } from "@/lib";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Table,
   TableBody,
@@ -13,15 +12,20 @@ import {
 import { Button } from "../ui/button";
 
 interface IExpensesProps {
-  budgetId: number;
-  userEmail: string;
-  isLoading: boolean;
+  expenses: IExpensesItem[];
+  deleteExpense: (expenseId: number) => Promise<void>;
+  editExpense: (expense?: IExpensesItem) => void;
+  isEditingId: number;
 }
 
 const pageSize = 10;
 
-function ExpensesList({ userEmail, budgetId, isLoading }: IExpensesProps) {
-  const [expenses, setExpenses] = useState<IExpensesItem[]>([]);
+function ExpensesList({
+  expenses,
+  deleteExpense,
+  editExpense,
+  isEditingId,
+}: IExpensesProps) {
   const [currentPage, setPage] = useState<number>(1);
 
   const currentExpenses = useMemo(() => {
@@ -29,22 +33,6 @@ function ExpensesList({ userEmail, budgetId, isLoading }: IExpensesProps) {
     const end = start + pageSize;
     return expenses.slice(start, end);
   }, [currentPage, expenses]);
-
-  useEffect(() => {
-    getExpensesByBudget(budgetId, userEmail).then((res) => {
-      if (!res) return;
-      const newExpenses = res.map((item: any) => ({
-        id: item.id,
-        description: item.description,
-        date: item.date,
-        amount: item.amount,
-        budgetId: item.budgetId || -1,
-      }));
-      setExpenses(newExpenses);
-    });
-  }, [budgetId, userEmail]);
-
-  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="w-full border-gray-200">
@@ -67,8 +55,22 @@ function ExpensesList({ userEmail, budgetId, isLoading }: IExpensesProps) {
               <TableCell>{item.budgetId}</TableCell>
               <TableCell width={"100px"}>
                 <div className="flex gap-2">
-                  <Button>Edit</Button>
-                  <Button>Delete</Button>
+                  <Button
+                    className="w-[100px]"
+                    onClick={
+                      isEditingId
+                        ? editExpense.bind(null, undefined)
+                        : editExpense.bind(null, item)
+                    }
+                  >
+                    {isEditingId === item.id ? "Cancel" : "Edit"}
+                  </Button>
+                  <Button
+                    className="w-[100px]"
+                    onClick={() => deleteExpense(item.id)}
+                  >
+                    Delete
+                  </Button>
                 </div>
               </TableCell>
             </TableRow>

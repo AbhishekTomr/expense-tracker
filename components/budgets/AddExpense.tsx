@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
@@ -6,22 +6,13 @@ import DatePicker from "../common/DatePicker";
 import { IExpenses } from "@/lib";
 
 type Props = {
-  budgetId: number;
+  expense: IExpenses;
+  isEditingId: number;
   addExpense: (expense: IExpenses, formData: FormData) => void;
+  onChange: (id: string, value: string | Date) => void;
 };
 
-function AddExpense({ budgetId, addExpense }: Props) {
-  const [expense, setExpense] = useState<IExpenses>({
-    description: "",
-    amount: "",
-    date: new Date(),
-    budgetId,
-  });
-
-  const onChange = (id: string, value: string | Date) => {
-    setExpense((expense: IExpenses) => ({ ...expense, [id]: value }));
-  };
-
+function AddExpense({ expense, onChange, addExpense, isEditingId }: Props) {
   return (
     <div className="border-2 p-5 shadow-md rounded-lg">
       <h2 className="font-bold text-lg">Add Expense</h2>
@@ -70,7 +61,7 @@ function AddExpense({ budgetId, addExpense }: Props) {
           }}
         />
         <Button form="create-expense" type="submit" className="w-full mt-5">
-          Add Expense
+          {isEditingId ? "Update Expense" : "Add Expense"}
         </Button>
       </form>
     </div>
