@@ -31,67 +31,17 @@ export const createBudget = async (budget: IBudget) => {
   return result;
 };
 
-export const addInitialData = async () => {
-  await db.insert(Budgets).values([
-    {
-      name: "Food",
-      amount: "5000",
-      icon: "🍕",
-      createdBy: "imabhishek111@gmail.com",
-    },
-    {
-      name: "Travel",
-      amount: "10000",
-      icon: "✈️",
-      createdBy: "imabhishek111@gmail.com",
-    },
-    {
-      name: "Shopping",
-      amount: "7000",
-      icon: "🛍️",
-      createdBy: "imabhishek111@gmail.com",
-    },
-  ]);
-  await db.insert(Expenses).values([
-    {
-      amount: "100",
-      description: "Chilli Patato",
-      date: new Date("2025-10-20"),
-      budgetId: 1,
-    },
-    {
-      amount: "200",
-      description: "Flights",
-      date: new Date("2025-10-22"),
-      budgetId: 2,
-    },
-    {
-      amount: "300",
-      description: "LV BAG",
-      date: new Date("2025-10-23"),
-      budgetId: 3,
-    },
-    {
-      amount: "300",
-      description: "Shoes",
-      date: new Date("2025-10-25"),
-      budgetId: 3,
-    },
-    {
-      amount: "400",
-      description: "SAMOSEE",
-      date: new Date("2025-10-24"),
-      budgetId: 1,
-    },
-  ]);
-};
-
-export const getExpensesByBudget = async (budgetId: number) => {
+export const getExpensesByBudget = async (
+  budgetId: number,
+  userEmail: string
+) => {
   return await db
     .select({ ...getTableColumns(Expenses) })
     .from(Expenses)
     .leftJoin(Budgets, eq(Expenses.budgetId, Budgets.id))
-    .where(and(eq(Expenses.budgetId, budgetId)));
+    .where(
+      and(eq(Expenses.budgetId, budgetId), eq(Budgets.createdBy, userEmail))
+    );
 };
 
 export const getBudgetById = async (budgetId: number, userEmail: string) => {

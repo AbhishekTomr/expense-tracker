@@ -1,5 +1,5 @@
-function ExpensesItem({}) {
-  return <div>ExpensesItem</div>;
+function ExpensesItem() {
+  return <div className=""></div>;
 }
 
 export default ExpensesItem;

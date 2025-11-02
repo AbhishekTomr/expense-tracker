@@ -7,6 +7,7 @@ import AddExpense from "./AddExpense";
 import { createExpense, getBudgetById } from "@/actions/expense";
 import _ from "lodash";
 import { useUser } from "@clerk/nextjs";
+import ExpensesList from "./ExpensesList";
 
 type Props = {
   budgetId: string;
@@ -72,6 +73,12 @@ const ExpensesHeader = ({ budgetId }: Props) => {
           </div>
         )}
         <AddExpense budgetId={+budgetId} addExpense={addExpense} />
+      </div>
+      <div>
+        <ExpensesList
+          userEmail={user?.primaryEmailAddress?.emailAddress as string}
+          budgetId={+budgetId}
+        />
       </div>
     </>
   );

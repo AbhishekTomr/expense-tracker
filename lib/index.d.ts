@@ -28,3 +28,7 @@ interface IExpenses {
   date: Date;
   budgetId: number;
 }
+
+interface IExpensesItem extends IExpenses {
+  id: number;
+}

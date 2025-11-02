@@ -3,11 +3,10 @@ import FullLogo from "../../public/full_logo.svg";
 import { Button } from "../ui/button";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { SearchIcon } from "lucide-react";
 
 function Header() {
   return (
-    <header className="flex justify-between items-center p-4 gap-4 h-16 border-2">
+    <header className="flex justify-between items-center p-4 gap-4 h-16">
       <Link href={"/"}>
         <Image src={FullLogo} alt="logo" width={150} height={100} />
       </Link>
@@ -21,10 +20,10 @@ function Header() {
       </SignedOut>
       <SignedIn>
         <div className="flex gap-10">
-          <div className="bg-gray-100 border-2 w-2xl p-2 flex gap-1">
+          {/* <div className="bg-gray-100 border-2 w-2xl p-2 flex gap-1">
             <SearchIcon className="mr-1" />
             Search Bar
-          </div>
+          </div> */}
           <UserButton />
         </div>
       </SignedIn>
