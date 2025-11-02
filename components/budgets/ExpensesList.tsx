@@ -18,7 +18,7 @@ interface IExpensesProps {
   isLoading: boolean;
 }
 
-const pageSize = 30;
+const pageSize = 10;
 
 function ExpensesList({ userEmail, budgetId, isLoading }: IExpensesProps) {
   const [expenses, setExpenses] = useState<IExpensesItem[]>([]);
@@ -79,12 +79,14 @@ function ExpensesList({ userEmail, budgetId, isLoading }: IExpensesProps) {
         <Button
           className="cursor-pointer"
           onClick={() => setPage((current) => current - 1)}
+          disabled={currentPage <= 1}
         >
           Previous
         </Button>
         <Button
           className="cursor-pointer"
           onClick={() => setPage((current) => current + 1)}
+          disabled={currentPage > Math.floor(expenses.length / pageSize)}
         >
           Next
         </Button>
