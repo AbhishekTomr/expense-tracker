@@ -34,7 +34,7 @@ function BudgetList() {
   }, [user?.primaryEmailAddress?.emailAddress, isOpen]);
 
   return (
-    <div className="mt-10 hover:cursor-pointer hover:shadow">
+    <div className="mt-10">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <CreateBudget isOpen={isOpen} setIsOpen={setIsOpen} />
         {budgets.length ? (

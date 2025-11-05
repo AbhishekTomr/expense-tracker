@@ -36,7 +36,7 @@ export const getExpensesByBudget = async (
   userEmail: string
 ) => {
   return await db
-    .select({ ...getTableColumns(Expenses) })
+    .select({ ...getTableColumns(Expenses), budgetName: Budgets.name })
     .from(Expenses)
     .leftJoin(Budgets, eq(Expenses.budgetId, Budgets.id))
     .where(
@@ -80,7 +80,6 @@ export const deleteExpenses = async (expenseId: number) => {
 };
 
 export const editExpense = async (expense: IExpensesItem) => {
-  console.log("check this out*****", expense);
   const result = await db
     .update(Expenses)
     .set({

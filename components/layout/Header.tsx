@@ -11,12 +11,14 @@ function Header() {
         <Image src={FullLogo} alt="logo" width={150} height={100} />
       </Link>
       <SignedOut>
-        <Button asChild className="w-[100px] mx-1">
-          <Link href={"/sign-in"}>Sign In</Link>
-        </Button>
-        <Button variant={"ghost"} className="w-[100px] mx-1" asChild>
-          <Link href={"/sign-up"}>Sign Up</Link>
-        </Button>
+        <div>
+          <Button asChild className="w-[100px] mx-1">
+            <Link href={"/sign-in"}>Sign In</Link>
+          </Button>
+          <Button variant={"ghost"} className="w-[100px] mx-1" asChild>
+            <Link href={"/sign-up"}>Sign Up</Link>
+          </Button>
+        </div>
       </SignedOut>
       <SignedIn>
         <div className="flex gap-10">
