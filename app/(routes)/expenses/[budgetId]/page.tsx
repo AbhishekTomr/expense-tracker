@@ -8,7 +8,7 @@ const BudgetDetailsPage = async ({
   return (
     <>
       <h2 className="text-2xl font-bold">My Expenses</h2>
-      <ExpensesHeader budgetId={budgetId} />
+      <ExpensesHeader budgetId={+budgetId} />
     </>
   );
 };

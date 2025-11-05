@@ -16,6 +16,7 @@ interface IExpensesProps {
   deleteExpense: (expenseId: number) => Promise<void>;
   editExpense: (expense?: IExpensesItem) => void;
   isEditingId: number;
+  showActionBtns: boolean;
 }
 
 const pageSize = 10;
@@ -25,6 +26,7 @@ function ExpensesList({
   deleteExpense,
   editExpense,
   isEditingId,
+  showActionBtns,
 }: IExpensesProps) {
   const [currentPage, setPage] = useState<number>(1);
 
@@ -52,11 +54,12 @@ function ExpensesList({
               <TableCell>{item.description}</TableCell>
               <TableCell>{item.amount}</TableCell>
               <TableCell>{new Date(item.date).toDateString()}</TableCell>
-              <TableCell>{item.budgetId}</TableCell>
+              <TableCell>{item.budgetName}</TableCell>
               <TableCell width={"100px"}>
                 <div className="flex gap-2">
                   <Button
                     className="w-[100px]"
+                    disabled={!showActionBtns}
                     onClick={
                       isEditingId
                         ? editExpense.bind(null, undefined)
@@ -68,6 +71,7 @@ function ExpensesList({
                   <Button
                     className="w-[100px]"
                     onClick={() => deleteExpense(item.id)}
+                    disabled={!showActionBtns}
                   >
                     Delete
                   </Button>

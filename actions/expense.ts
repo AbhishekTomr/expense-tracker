@@ -32,9 +32,17 @@ export const createBudget = async (budget: IBudget) => {
 };
 
 export const getExpensesByBudget = async (
-  budgetId: number,
+  budgetId: number | null,
   userEmail: string
 ) => {
+  if (budgetId === null) {
+    //send all budgets
+    return await db
+      .select({ ...getTableColumns(Expenses), budgetName: Budgets.name })
+      .from(Expenses)
+      .leftJoin(Budgets, eq(Expenses.budgetId, Budgets.id))
+      .where(eq(Budgets.createdBy, userEmail));
+  }
   return await db
     .select({ ...getTableColumns(Expenses), budgetName: Budgets.name })
     .from(Expenses)

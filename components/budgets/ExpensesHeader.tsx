@@ -16,18 +16,17 @@ import { useUser } from "@clerk/nextjs";
 import ExpensesList from "./ExpensesList";
 
 type Props = {
-  budgetId: string;
+  budgetId: number | null;
 };
 
 const ExpensesHeader = ({ budgetId }: Props) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedBudget, setSelectedBudget] = useState<IBudgetItem>();
   const [expenses, setExpenses] = useState<IExpensesItem[]>([]);
   const [expense, setExpense] = useState<IExpenses>({
     description: "",
     amount: "",
     date: new Date(),
-    budgetId: +budgetId,
+    budgetId: budgetId ?? -1,
   });
   const [isEditingId, setIsEditing] = useState<number>(0);
   // will be zero or some number;
@@ -61,7 +60,7 @@ const ExpensesHeader = ({ budgetId }: Props) => {
 
   const fetchExpenses = useCallback(async () => {
     const rowExpenses = await getExpensesByBudget(
-      +budgetId,
+      budgetId,
       user?.primaryEmailAddress?.emailAddress as string
     );
     const newExpenses = rowExpenses.map((item) => ({
@@ -70,6 +69,7 @@ const ExpensesHeader = ({ budgetId }: Props) => {
       date: item.date,
       amount: item.amount,
       budgetId: item.budgetId || -1,
+      budgetName: item.budgetName as string,
     }));
     setExpenses(newExpenses);
   }, [budgetId, user]);
@@ -82,7 +82,6 @@ const ExpensesHeader = ({ budgetId }: Props) => {
   const addExpense = useCallback(
     async (expense: IExpenses) => {
       try {
-        setIsLoading(true);
         if (isEditingId) {
           await editExpenseItem({ ...expense, id: isEditingId });
         } else {
@@ -94,12 +93,11 @@ const ExpensesHeader = ({ budgetId }: Props) => {
           description: "",
           amount: "",
           date: new Date(),
-          budgetId: +budgetId,
+          budgetId: budgetId ?? -1,
         });
       } catch (error) {
         console.error("Error adding expense:", error);
       } finally {
-        setIsLoading(false);
         setIsEditing(0);
       }
     },
@@ -113,7 +111,7 @@ const ExpensesHeader = ({ budgetId }: Props) => {
         description: "",
         amount: "",
         date: new Date(),
-        budgetId: +budgetId,
+        budgetId: budgetId ?? -1,
       });
     } else {
       setIsEditing(expense.id);
@@ -137,33 +135,36 @@ const ExpensesHeader = ({ budgetId }: Props) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 my-5 gap-5">
-        {selectedBudget ? (
-          <div className="h-[170px]">
-            <BudgetItem budget={selectedBudget} hideDetailsButton={true} />
-          </div>
-        ) : (
-          <div className="flex items-center space-x-4 shadow-sm h-40 p-5">
-            <Skeleton className="h-12 w-12 rounded-full" />
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-[250px]" />
-              <Skeleton className="h-4 w-[200px]" />
+      {budgetId && (
+        <div className="grid grid-cols-1 md:grid-cols-2 my-5 gap-5">
+          {selectedBudget ? (
+            <div className="h-[170px]">
+              <BudgetItem budget={selectedBudget} hideDetailsButton={true} />
             </div>
-          </div>
-        )}
-        <AddExpense
-          expense={expense}
-          onChange={onChange}
-          addExpense={addExpense}
-          isEditingId={isEditingId}
-        />
-      </div>
+          ) : (
+            <div className="flex items-center space-x-4 shadow-sm h-40 p-5">
+              <Skeleton className="h-12 w-12 rounded-full" />
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-[250px]" />
+                <Skeleton className="h-4 w-[200px]" />
+              </div>
+            </div>
+          )}
+          <AddExpense
+            expense={expense}
+            onChange={onChange}
+            addExpense={addExpense}
+            isEditingId={isEditingId}
+          />
+        </div>
+      )}
       <div>
         <ExpensesList
           expenses={expenses}
           deleteExpense={deleteExpenseById}
           editExpense={editExpense}
           isEditingId={isEditingId}
+          showActionBtns={budgetId !== null}
         />
       </div>
     </>

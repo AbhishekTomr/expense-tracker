@@ -31,4 +31,5 @@ interface IExpenses {
 
 interface IExpensesItem extends IExpenses {
   id: number;
+  budgetName?: string;
 }
