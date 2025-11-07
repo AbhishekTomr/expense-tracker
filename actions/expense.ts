@@ -2,7 +2,7 @@
 import { IBudget, IExpenses, IExpensesItem } from "@/lib";
 import { db } from "@/lib/db-config";
 import { Budgets, Expenses } from "@/lib/schema";
-import { and, eq, getTableColumns, sql } from "drizzle-orm";
+import { and, eq, getTableColumns, sql, sum } from "drizzle-orm";
 
 export const getAllBugets = async (userEmail: string) => {
   const result = await db
@@ -12,8 +12,8 @@ export const getAllBugets = async (userEmail: string) => {
       totalCount: sql`count(${Expenses.id})`,
     })
     .from(Budgets)
-    .where(eq(Budgets.createdBy, userEmail))
     .leftJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
+    .where(eq(Budgets.createdBy, userEmail))
     .groupBy(Budgets.id);
   return result;
 };
@@ -97,4 +97,11 @@ export const editExpense = async (expense: IExpensesItem) => {
     .where(eq(Expenses.id, expense.id))
     .returning({ expenseId: Expenses.id });
   return result;
+};
+
+export const deleteBudget = async (budgetId: number) => {
+  return db
+    .delete(Budgets)
+    .where(eq(Budgets.id, budgetId))
+    .returning({ budgetId: Budgets.id });
 };
