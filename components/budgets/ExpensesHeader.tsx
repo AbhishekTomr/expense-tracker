@@ -134,7 +134,7 @@ const ExpensesHeader = ({ budgetId }: Props) => {
   );
 
   return (
-    <div className="my-6 bg-white shadow-2xl p-6 rounded-2xl">
+    <div className="">
       {budgetId && (
         <div className="grid grid-cols-1 md:grid-cols-2 my-5 gap-5">
           {selectedBudget ? (

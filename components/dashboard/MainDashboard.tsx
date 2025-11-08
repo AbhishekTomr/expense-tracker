@@ -19,21 +19,24 @@ function MainDashboard({ userName, budgets }: Props) {
       <div className="grid grid-cols-1 md:grid-cols-3 my-10 gap-6">
         <div className="col-span-2">
           <BarChart budgets={budgets} />
-          <ExpensesHeader budgetId={null} />
+          <div className="my-6 bg-white shadow-2xl p-6 rounded-2xl">
+            <ExpensesHeader budgetId={null} />
+          </div>
         </div>
-        <div className="grid gap-6">
+        <div>
           <h2 className="text-[20px] font-semibold">Latest Budgets</h2>
           {_.sortBy(budgets, "created_ts")
             .slice(0, 4)
             .map((item) => (
-              <BudgetItem
-                key={item.id}
-                budget={item}
-                hideDetailsButton={false}
-                hideActionBtns={true}
-                onDelete={(budgetId: number) => {}}
-                onEdit={(budget: IBudgetItem) => {}}
-              />
+              <div className="my-6" key={item.id}>
+                <BudgetItem
+                  budget={item}
+                  hideDetailsButton={false}
+                  hideActionBtns={true}
+                  onDelete={(budgetId: number) => {}}
+                  onEdit={(budget: IBudgetItem) => {}}
+                />
+              </div>
             ))}
         </div>
       </div>
