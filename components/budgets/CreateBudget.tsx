@@ -105,8 +105,9 @@ function CreateBudget({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="">Create new budget</DialogTitle>
-
+          <DialogTitle className="">
+            {editBudget ? "Edit Budget" : "Create new budget"}
+          </DialogTitle>
           <EmojiPicker emoji={budget.emoji} onChangeHandler={onChangeHandler} />
           <form action={handleSubmit} id="create-budget" className="mt-9">
             <div className="my-1 flex flex-col gap-2">
@@ -144,7 +145,11 @@ function CreateBudget({
               disabled={disableSubmit || isLoading}
               className="w-full mt-5"
             >
-              {isLoading ? "Adding Budget...." : "Create Budget"}
+              {editBudget ? (
+                <> {isLoading ? "Updating Budget...." : "Update Budget"}</>
+              ) : (
+                <> {isLoading ? "Adding Budget...." : "Create Budget"}</>
+              )}
             </Button>
           </form>
         </DialogHeader>
