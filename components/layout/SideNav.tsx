@@ -37,12 +37,12 @@ function SideNav() {
       url: "/expenses",
       icon: <ReceiptText />,
     },
-    {
-      id: "upgrade",
-      title: "Upgrade",
-      url: "/upgrade",
-      icon: <ShieldCheck />,
-    },
+    // {
+    //   id: "upgrade",
+    //   title: "Upgrade",
+    //   url: "/upgrade",
+    //   icon: <ShieldCheck />,
+    // },
   ];
 
   return (
