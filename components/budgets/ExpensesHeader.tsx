@@ -140,7 +140,12 @@ const ExpensesHeader = ({ budgetId }: Props) => {
         <div className="grid grid-cols-1 md:grid-cols-2 my-5 gap-5">
           {selectedBudget ? (
             <div className="h-[170px]">
-              <BudgetItem budget={selectedBudget} hideDetailsButton={true} />
+              <BudgetItem
+                budget={selectedBudget}
+                hideDetailsButton={true}
+                onDelete={() => {}}
+                onEdit={() => {}}
+              />
             </div>
           ) : (
             <div className="flex items-center space-x-4 shadow-sm h-40 p-5">

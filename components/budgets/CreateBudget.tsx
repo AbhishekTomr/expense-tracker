@@ -91,12 +91,7 @@ function CreateBudget({
   };
 
   return (
-    <Dialog
-      open={isOpen}
-      onOpenChange={() => {
-        setIsOpen((oldState) => !oldState);
-      }}
-    >
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <div className="bg-slate-100 p-10 rounded-md items-center flex justify-center flex-col border-2 border-dashed cursor-pointer hover:shadow-sm">
           <h2 className="text-3xl">+</h2>

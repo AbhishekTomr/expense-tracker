@@ -2,7 +2,7 @@ import ExpensesHeader from "@/components/budgets/ExpensesHeader";
 const BudgetDetailsPage = async ({
   params,
 }: {
-  params: { budgetId: string };
+  params: Promise<{ budgetId: string }>;
 }) => {
   const { budgetId } = await params;
   return (
