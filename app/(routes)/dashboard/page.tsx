@@ -1,21 +1,31 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
-import _ from "lodash";
 import LoadingWrapper from "@/components/wrappers/LoadingWrapper";
 import { getAllBugets } from "@/actions/expense";
 import { Lock } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import MainDashboard from "@/components/dashboard/MainDashboard";
+import { IBudgetItem } from "@/lib";
 
 const DashboardPage = () => {
   const { user } = useUser();
-  const [budgets, setBugets] = useState<any[] | null>(null);
+  const [budgets, setBugets] = useState<IBudgetItem[] | null>(null);
 
   useEffect(() => {
     getAllBugets(user?.primaryEmailAddress?.emailAddress as string).then(
       (budgets) => {
-        setBugets(budgets);
+        const budgetItems: IBudgetItem[] = budgets.map((item) => ({
+          id: item.id,
+          "budget-amount": item.amount,
+          "budget-name": item.name,
+          totalCount: Number(item.totalCount) || 0,
+          totalSpend: Number(item.totalSpend) || 0,
+          emoji: item.icon || "",
+          createdBy: item.createdBy,
+        }));
+        setBugets(budgetItems);
       }
     );
   }, [user]);
@@ -24,7 +34,7 @@ const DashboardPage = () => {
     <div className="h-full">
       <LoadingWrapper isLoading={budgets === null}>
         {budgets?.length ? (
-          <>Budgets Page</>
+          <MainDashboard userName={user?.firstName ?? ""} budgets={budgets} />
         ) : (
           <div className="flex flex-col justify-center items-center h-full text-[18px] font-semibold text-primary text-center">
             <Lock className="my-5 size-10 font-bold" />

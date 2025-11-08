@@ -134,7 +134,7 @@ const ExpensesHeader = ({ budgetId }: Props) => {
   );
 
   return (
-    <>
+    <div className="my-6 bg-white shadow-2xl p-6 rounded-2xl">
       {budgetId && (
         <div className="grid grid-cols-1 md:grid-cols-2 my-5 gap-5">
           {selectedBudget ? (
@@ -159,6 +159,9 @@ const ExpensesHeader = ({ budgetId }: Props) => {
         </div>
       )}
       <div>
+        <h2 className="font-semibold">
+          <h2>Expenses</h2>
+        </h2>
         <ExpensesList
           expenses={expenses}
           deleteExpense={deleteExpenseById}
@@ -167,7 +170,7 @@ const ExpensesHeader = ({ budgetId }: Props) => {
           showActionBtns={budgetId !== null}
         />
       </div>
-    </>
+    </div>
   );
 };
 
