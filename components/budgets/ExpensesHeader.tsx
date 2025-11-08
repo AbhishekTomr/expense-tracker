@@ -1,6 +1,7 @@
 "use client";
+
 import { IBudgetItem, IExpenses, IExpensesItem } from "@/lib";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import BudgetItem from "./BudgetItem";
 import { Skeleton } from "../ui/skeleton";
 import AddExpense from "./AddExpense";

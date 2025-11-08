@@ -8,7 +8,7 @@ function Header() {
   return (
     <header className="flex justify-between items-center p-6 gap-4 h-16">
       <Link href={"/"}>
-        <Image src={FullLogo} alt="logo" width={150} height={100} />
+        <Image src={FullLogo} alt="logo" width={210} />
       </Link>
       <SignedOut>
         <div>
@@ -22,10 +22,6 @@ function Header() {
       </SignedOut>
       <SignedIn>
         <div className="flex gap-10">
-          {/* <div className="bg-gray-100 border-2 w-2xl p-2 flex gap-1">
-            <SearchIcon className="mr-1" />
-            Search Bar
-          </div> */}
           <UserButton />
         </div>
       </SignedIn>

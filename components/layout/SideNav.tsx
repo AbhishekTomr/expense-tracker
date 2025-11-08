@@ -6,12 +6,7 @@ import {
   SidebarHeader,
   SidebarMenu,
 } from "../ui/sidebar";
-import {
-  LayoutGrid,
-  PiggyBankIcon,
-  ReceiptText,
-  ShieldCheck,
-} from "lucide-react";
+import { LayoutGrid, PiggyBankIcon, ReceiptText } from "lucide-react";
 import FullLogo from "../../public/full_logo.svg";
 import Image from "next/image";
 import SideNavItem from "./SideNavItem";

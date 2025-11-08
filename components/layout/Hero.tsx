@@ -1,5 +1,5 @@
 import Image from "next/image";
-import DashboardImg from "../../public/dashboard.jpg";
+import DashboardImg from "../../public/dashboard.png";
 
 const Hero = () => {
   return (
@@ -32,7 +32,8 @@ const Hero = () => {
           src={DashboardImg}
           alt="dashbopard img"
           width={1000}
-          height={700}
+          height={500}
+          className="my-10 border-2 shadow-2xl"
         />
       </section>
     </>
