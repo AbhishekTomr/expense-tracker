@@ -1,5 +1,5 @@
 "use server";
-import { IBudget, IExpenses, IExpensesItem } from "@/lib";
+import { IBudget, IBudgetItem, IExpenses, IExpensesItem } from "@/lib";
 import { db } from "@/lib/db-config";
 import { Budgets, Expenses } from "@/lib/schema";
 import { and, eq, getTableColumns, sql, sum } from "drizzle-orm";
@@ -103,5 +103,19 @@ export const deleteBudget = async (budgetId: number) => {
   return db
     .delete(Budgets)
     .where(eq(Budgets.id, budgetId))
+    .returning({ budgetId: Budgets.id });
+};
+
+export const editBudget = async (budget: IBudgetItem) => {
+  return db
+    .update(Budgets)
+    .set({
+      id: budget.id,
+      name: budget["budget-name"],
+      amount: budget["budget-amount"],
+      icon: budget.emoji,
+      createdBy: budget.createdBy,
+    })
+    .where(eq(Budgets.id, budget.id))
     .returning({ budgetId: Budgets.id });
 };

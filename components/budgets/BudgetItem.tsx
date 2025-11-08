@@ -2,13 +2,21 @@ import { IBudgetItem } from "@/lib";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { useMemo } from "react";
+import { Trash, Pen } from "lucide-react";
 
 type Props = {
   budget: IBudgetItem;
   hideDetailsButton?: boolean;
+  onDelete: (budgetId: number) => void;
+  onEdit: (budget: IBudgetItem) => void;
 };
 
-const BudgetItem = ({ budget, hideDetailsButton = false }: Props) => {
+const BudgetItem = ({
+  budget,
+  hideDetailsButton = false,
+  onDelete,
+  onEdit,
+}: Props) => {
   const percentage = useMemo(() => {
     if (budget.totalSpend > +budget["budget-amount"]) return 100;
     return (budget.totalSpend / +budget["budget-amount"]) * 100;
@@ -34,9 +42,27 @@ const BudgetItem = ({ budget, hideDetailsButton = false }: Props) => {
         ></div>
       </div>
       {!hideDetailsButton && (
-        <Button asChild className="w-30">
-          <Link href={`/expenses/${budget.id}`}>View Details</Link>
-        </Button>
+        <div className="flex items-center justify-between">
+          <Button asChild className="w-30">
+            <Link href={`/expenses/${budget.id}`}>View Details</Link>
+          </Button>
+          <div className="flex gap-2">
+            <Button
+              variant={"ghost"}
+              className="cursor-pointer"
+              onClick={onEdit.bind(null, budget)}
+            >
+              <Pen size={20} />
+            </Button>
+            <Button
+              variant={"ghost"}
+              className="cursor-pointer"
+              onClick={onDelete.bind(null, budget.id)}
+            >
+              <Trash size={20} />
+            </Button>
+          </div>
+        </div>
       )}
     </div>
   );

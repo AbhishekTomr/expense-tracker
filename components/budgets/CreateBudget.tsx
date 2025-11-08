@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, useCallback, useMemo, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import EmojiPicker from "../common/EmojiPicker";
 import { Button } from "../ui/button";
 import {
@@ -11,7 +11,7 @@ import {
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { IBudget } from "@/lib";
+import { IBudget, IBudgetItem } from "@/lib";
 import _ from "lodash";
 import { useUser } from "@clerk/nextjs";
 import { createBudget } from "@/actions/expense";
@@ -26,13 +26,28 @@ const initialBudgetVal = {
 function CreateBudget({
   isOpen,
   setIsOpen,
+  editBudget,
+  saveEditBudget,
 }: {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
+  editBudget: IBudgetItem | null;
+  saveEditBudget: (budget: IBudgetItem) => void;
 }) {
   const { user } = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [budget, setBudget] = useState<IBudget>(initialBudgetVal);
+
+  useEffect(() => {
+    if (editBudget) {
+      setBudget({
+        "budget-name": editBudget["budget-name"],
+        "budget-amount": editBudget["budget-amount"],
+        emoji: editBudget.emoji,
+        createdBy: editBudget.createdBy,
+      });
+    }
+  }, [editBudget]);
 
   const onChangeHandler = useCallback(
     (id: string, value: string) => {
@@ -58,7 +73,13 @@ function CreateBudget({
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
-      await createBudget(budget);
+      if (editBudget) {
+        const newBudget = { ...editBudget, ...budget };
+        console.log("new Budget", newBudget);
+        await saveEditBudget(newBudget);
+      } else {
+        await createBudget(budget);
+      }
       toast("Budget created successfully!!");
       setBudget(initialBudgetVal);
     } catch {
