@@ -165,9 +165,9 @@ const ExpensesHeader = ({ budgetId }: Props) => {
         </div>
       )}
       <div>
-        <h2 className="font-semibold">
+        <div className="font-semibold">
           <h2>Expenses</h2>
-        </h2>
+        </div>
         <ExpensesList
           expenses={expenses}
           deleteExpense={deleteExpenseById}
