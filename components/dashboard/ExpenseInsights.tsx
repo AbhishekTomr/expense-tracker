@@ -14,8 +14,7 @@ function ExpenseInsights() {
         return res.json();
       })
       .then((data) => {
-        const insights = data.insight;
-        setInsights(insights);
+        setInsights(data.insights ?? "");
       })
       .catch(() => {
         console.error("no user found");
