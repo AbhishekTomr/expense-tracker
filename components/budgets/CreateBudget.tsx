@@ -75,7 +75,6 @@ function CreateBudget({
       setIsLoading(true);
       if (editBudget) {
         const newBudget = { ...editBudget, ...budget };
-        console.log("new Budget", newBudget);
         await saveEditBudget(newBudget);
       } else {
         await createBudget(budget);

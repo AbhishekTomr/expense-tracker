@@ -9,7 +9,6 @@ type Props = {
 const CardInfo = ({ budgets }: Props) => {
   const totalBudget = budgets.reduce(
     (sum: number, currentItem: IBudgetItem) => {
-      console.log("currentItem", currentItem);
       return sum + _.toNumber(currentItem["budget-amount"]);
     },
     0

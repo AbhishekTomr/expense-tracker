@@ -5,6 +5,7 @@ import BarChart from "../charts/BarChart";
 import BudgetItem from "../budgets/BudgetItem";
 import _ from "lodash";
 import ExpensesHeader from "../budgets/ExpensesHeader";
+import ExpenseInsights from "./ExpenseInsights";
 
 type Props = { userName: string; budgets: IBudgetItem[] };
 
@@ -19,6 +20,7 @@ function MainDashboard({ userName, budgets }: Props) {
       <div className="grid grid-cols-1 md:grid-cols-3 my-10 gap-6">
         <div className="col-span-2">
           <BarChart budgets={budgets} />
+          <ExpenseInsights />
           <div className="my-6 bg-white shadow-2xl p-6 rounded-2xl">
             <ExpensesHeader budgetId={null} />
           </div>
