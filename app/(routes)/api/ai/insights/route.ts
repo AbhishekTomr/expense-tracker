@@ -32,7 +32,9 @@ export async function POST(req: Request) {
         },
       ],
     });
-    const insights = await result.text;
+    const insights = await result.text
+      ?.replaceAll("```", "")
+      .replace("jsx", "");
 
     return NextResponse.json({ insights });
   } catch (error) {
